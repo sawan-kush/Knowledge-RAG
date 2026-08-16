@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Knowledge Graph RAG</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="/static/style.css" />
+<script src="/static/vendor/vis-network.min.js"></script>
+</head>
+<body>
+<div class="shell">
+  <div class="card">
+    <header>
+      <div class="brand">
+        <h1>Knowledge Graph RAG</h1>
+        <span class="tag">— grounded in Neo4j subgraphs</span>
+      </div>
+      <div class="status" id="status" title="Click to reload graph schema">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">checking</span>
+      </div>
+    </header>
+
+    <div class="feed" id="feed">
+      <div class="empty-state" id="emptyState">
+        <div class="glyph">◆ — ◇ — ◆</div>
+        <h2>Ask something about your graph</h2>
+        <p>Every answer is grounded in a subgraph pulled live from Neo4j. Click the source
+        note under any answer to open and explore that exact subgraph.</p>
+      </div>
+    </div>
+
+    <div class="composer">
+      <form id="askForm">
+        <input id="questionInput" type="text" placeholder="e.g. How is Acme Corp connected to Jane Doe?" autocomplete="off" />
+        <button type="submit" id="askBtn">Ask</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" style="display:none;">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">Subgraph</h3>
+      <button class="close" id="modalClose">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div id="network"></div>
+      <div class="side-panel" id="sidePanel">
+        <h4>Cypher used</h4>
+        <div class="cypher-box" id="cypherBox"></div>
+        <h4>Details</h4>
+        <div id="detailBox" class="hint">Click a node or edge to inspect its properties.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
